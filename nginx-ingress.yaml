@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingres
+spec:
+  tls:
+    - hosts:
+        - nginx-test.infotag-cluster.access.steinmoetzger.dev
+      secretName: wildcard-tls
+  ingressClassName: nginx
+  rules:
+    - host: nginx-test.infotag-cluster.access.steinmoetzger.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-service
+                port:
+                  number: 80
